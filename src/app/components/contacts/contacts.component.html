@@ -1,0 +1,62 @@
+<div id="container">
+    <mat-accordion class="example-headers-align">
+        <mat-toolbar color="primary"> 
+          <mat-toolbar-row>
+            <span>Contacts</span>
+            <span class="example-spacer"></span>
+            <span class="example-spacer"></span>
+            <button mat-icon-button (click)="newContact()">
+                <mat-icon mat-list-icon>add</mat-icon>
+            </button>
+          </mat-toolbar-row>
+        </mat-toolbar>
+        <div *ngIf="contacts.length">
+            <mat-expansion-panel *ngFor="let contact of contacts; let i=index" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    {{contact.name|uppercase}}
+                  </mat-panel-title>
+                  <mat-panel-description>
+                      <button mat-icon-button color="primary" (click)="edit(contact,i)">
+                        <mat-icon mat-list-icon>edit</mat-icon>
+                      </button>
+                    <button mat-icon-button  color="warn" (click)="deleteContact(i)">
+                      <mat-icon mat-list-icon>delete</mat-icon>
+                    </button>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+              
+                <mat-card class="example-card">
+                    <mat-card-content>
+                        <mat-list>
+                            <mat-list-item>
+                              <mat-icon mat-list-icon>face</mat-icon>
+                              <p mat-line> Name </p>
+                              <h4 mat-line>{{contact.name}}</h4>
+                            </mat-list-item>
+                            <mat-divider></mat-divider>
+                            <mat-list-item>
+                              <mat-icon mat-list-icon>phone</mat-icon>
+                              <p mat-line> Phone </p>
+                              <h4 mat-line>{{contact.phone}}</h4>
+                            </mat-list-item>
+                            <mat-divider></mat-divider>
+                            <mat-list-item>
+                              <mat-icon mat-list-icon>email</mat-icon>
+                              <p mat-line> Email </p>
+                              <h4 mat-line>{{contact.email}}</h4>
+                            </mat-list-item>
+                          </mat-list>
+                    </mat-card-content>
+                  </mat-card>
+                  <mat-action-row>
+                      <button mat-button color="warn" (click)="prevStep()">{{i>0?"Previous":null}}</button>
+                      <button mat-button color="primary" (click)="nextStep()">{{contacts.length-1>i?"Next":"End"}}</button>
+                  </mat-action-row>
+            </mat-expansion-panel>
+        </div>
+        <div id="noContacts">
+            <span *ngIf="!contacts.length">You don't have any contacts. Try adding some contacts</span>
+        </div>
+    </mat-accordion>
+</div>
